@@ -135,6 +135,27 @@ def GetLinkWithNonemptyInput( listOfLinks ):
 #		if OverflowCounter > 10:
 #			return
 
+
+def GetAppropriateLink( outputNeeded, listOfLinks, inputsForbidden ):
+	TestLinkIsNoGood = True
+	OverflowCounter = 0
+        IndexDeck= range(0, len(listOfLinks))
+        random.shuffle(IndexDeck)
+
+	while TestLinkIsNoGood and OverflowCounter<len(IndexDeck):		
+		TestLink = listOfLinks[IndexDeck[OverflowCounter] ]
+		if TestLink[1] == outputNeeded:
+                        print "Found method to get",outputNeeded
+                        if len([val for val in TestLink[0] if val in inputsForbidden])==0:
+                                TestLinkIsNoGood = False
+                                return TestLink
+                        else:
+                                print "Can't use method because of forbidden node",[val for val in TestLink[0] if val in inputsForbidden]
+		OverflowCounter += 1	
+	return
+
+
+
 def GetLinkWithOutput( node, listOfLinks ):
 	TestLinkIsNoGood = True
 #	OverflowCounter = 0
@@ -202,21 +223,24 @@ def BuildNodeTree():
 		# resolve the FIRST unresolved node
 		ThisUnresolvedNode = UnresolvedNodes[0]
 		print "THIS UNRESOLVED NODE = ", ThisUnresolvedNode
-		NewSnippet = GetLinkWithOutput( ThisUnresolvedNode, SnippetList )
-		Walkthrough.append(NewSnippet)
+		NewSnippet = GetAppropriateLink( ThisUnresolvedNode, SnippetList, ResolvedNodes)
+		
+		if NewSnippet:
+                        Walkthrough.append(NewSnippet)
 
-		# add any further dependences to the list
-		NewNodeList = NewSnippet[0]
-		for i in range(len(NewNodeList)):
-			if NodeNotOnList( NewNodeList[i], ResolvedNodes ):
-				UnresolvedNodes.append( NewNodeList[i] )
+        		# add any further dependences to the END of the list. If already present, move them to the end, so that they less likely to be resolved, can be reused.
+                	NewNodeList = NewSnippet[0]
+                        UnresolvedNodes= [item for item in UnresolvedNodes if item not in NewNodeList]+NewNodeList                        
 
-		# add resolved node to the Resolved list (to avoid repeats)
-		ResolvedNodes.append(UnresolvedNodes[0])
+                        # add resolved node to the Resolved list (to avoid circular dependancies.)
+                        ResolvedNodes.append(UnresolvedNodes[0])
 
-		# remove the FIRST unresolved node from the list
-		UnresolvedNodes.pop(0)
-
+                        # remove the FIRST unresolved node from the list
+                        UnresolvedNodes.pop(0)
+                else:
+                        UnresolvedNodes = []
+                        print "FAILURE! ALL IS LOST!"
+                
 		if iterationNumber > 100:
 			UnresolvedNodes = []
 
