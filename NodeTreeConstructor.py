@@ -1,5 +1,5 @@
 """
-Node appraoch:
+Node approach:
 - have a bag of nodes which have inputs, outputs (some have no input -- start nodes)
 - inputs/outputs are some sort of "significant object" or thing or whatever
 - have a function which grabs nodes, then goes backward to grab corresponding inputs
@@ -7,18 +7,20 @@ Node appraoch:
 
 """
 Data Input Structure
+====================
+Col 1		Col 2					Col 3				Col 4				Col 5
+[Snippet]	Input Node(s)			Output node(s)		Input Node Types	Output Node Types
+			(comma separated)		(comma separated)	(comma separated)	(comma separated)
 
-----------------------------------------------------------------------------------
-Input (n>=1)		Output (n=1)	Summary/Description [how get from input to output]
-----------------------------------------------------------------------------------
-InObj1, InObj2		OutObj				Snippet
-list of strings		string				string
+- (for now, every node has a type)
+- (when dealing with a generic node, the name of the node is the same as the node type)
+
 
 """
 
 import random
 
-
+"""
 # SnippetList is a list of 3-tuples. Each 3-tuple is a "link" and has input list, output string, & desc. string.
 SnippetList = [
 [ ["JarOfAir","Island"], "Shell", "Swim to the bottom of the bay and find a shell"],
@@ -107,8 +109,46 @@ SnippetList = [
 [ [], "JarOfAir", "get a jar of air. wheeeee"],
 [ [], "Rope", "Buy a rope."]
            ]
+"""
 
+inputFileName = "QuestSnippets.csv"
+#inputFileName = "input.csv"
+columnDelimiter = "#"  # separates columns
 
+SnippetList = []
+
+inputFile = open(inputFileName, "r")
+for line in inputFile:
+	InputsList = []
+	OutputsList = []
+	InputTypesList = []
+	OutputTypesList = []
+	line.replace("\n","") # remove newline symbols
+	ListOfItems = line.split("#")
+	Snippet = ListOfItems[0]
+	InputItems = ListOfItems[1]
+	OutputItems = ListOfItems[2]
+	InputTypes = ListOfItems[3]
+	OutputTypes = ListOfItems[4]
+	for item in InputItems.split(","):
+		if item != '0':
+			InputsList.append(item)
+	for item in OutputItems.split(","):
+		OutputsList.append(item)
+	for item in InputTypes.split(","):
+		if item != '0':
+			InputTypesList.append(item)
+	for item in OutputTypes.split(","):
+		OutputTypesList.append(item)
+	RowList = []
+	RowList.append(Snippet)
+	RowList.append(InputsList)
+	RowList.append(OutputsList)
+	RowList.append(InputTypesList)
+	RowList.append(OutputTypesList)
+	SnippetList.append(RowList)
+#for thing in SnippetList:
+#	print thing, "\n"
 
 
 #for i in range(0,10):
@@ -117,7 +157,7 @@ SnippetList = [
 
 
 def NumberOfInputs( inputLink ):
-	inputSnippetList = inputLink[0]
+	inputSnippetList = inputLink[1]
 	NumberOfInputs = len(inputSnippetList)
 	return NumberOfInputs
 
@@ -144,13 +184,13 @@ def GetAppropriateLink( outputNeeded, listOfLinks, inputsForbidden ):
 
 	while TestLinkIsNoGood and OverflowCounter<len(IndexDeck):		
 		TestLink = listOfLinks[IndexDeck[OverflowCounter] ]
-		if TestLink[1] == outputNeeded:
+		if TestLink[2][0] == outputNeeded:
                         print "Found method to get",outputNeeded
-                        if len([val for val in TestLink[0] if val in inputsForbidden])==0:
+                        if len([val for val in TestLink[1] if val in inputsForbidden])==0:
                                 TestLinkIsNoGood = False
                                 return TestLink
                         else:
-                                print "Can't use method because of forbidden node",[val for val in TestLink[0] if val in inputsForbidden]
+                                print "Can't use method because of forbidden node",[val for val in TestLink[1] if val in inputsForbidden]
 		OverflowCounter += 1	
 	return
 
@@ -163,7 +203,7 @@ def GetLinkWithOutput( node, listOfLinks ):
 	while TestLinkIsNoGood:
 		RandomNumber = random.randint(0, len(listOfLinks)-1)
 		TestLink = listOfLinks[ RandomNumber ]
-		if TestLink[1] == node:
+		if TestLink[2][0] == node:
 			TestLinkIsNoGood = False
 			return TestLink
 #		OverflowCounter += 1
@@ -177,7 +217,7 @@ def GetWinningLink( listOfLinks ):
 	while TestLinkDoesNotWin:
 		RandomNumber = random.randint(0, len(listOfLinks)-1)
 		TestLink = listOfLinks[ RandomNumber ]
-		if TestLink[1]=="Win":
+		if TestLink[2][0]=="Win":
 			TestLinkDoesNotWin = False
 			return TestLink
 #		OverflowCounter += 1
@@ -208,7 +248,7 @@ def BuildNodeTree():
 
 	### GET INITIAL LINK (with win condition) ###
 	Walkthrough.append(InitialLink)
-	InitialInputList = InitialLink[0]
+	InitialInputList = InitialLink[1]
 	print "InitialInputList = ", InitialInputList
 	for i in range(len(InitialInputList)):
 		UnresolvedNodes.append( InitialInputList[i] )
@@ -226,20 +266,20 @@ def BuildNodeTree():
 		NewSnippet = GetAppropriateLink( ThisUnresolvedNode, SnippetList, ResolvedNodes)
 		
 		if NewSnippet:
-                        Walkthrough.append(NewSnippet)
+			Walkthrough.append(NewSnippet)
 
-        		# add any further dependences to the END of the list. If already present, move them to the end, so that they less likely to be resolved, can be reused.
-                	NewNodeList = NewSnippet[0]
-                        UnresolvedNodes= [item for item in UnresolvedNodes if item not in NewNodeList]+NewNodeList                        
+			# add any further dependences to the END of the list. If already present, move them to the end, so that they less likely to be resolved, can be reused.
+			NewNodeList = NewSnippet[1]
+			UnresolvedNodes= [item for item in UnresolvedNodes if item not in NewNodeList]+NewNodeList                        
 
-                        # add resolved node to the Resolved list (to avoid circular dependancies.)
-                        ResolvedNodes.append(UnresolvedNodes[0])
+			# add resolved node to the Resolved list (to avoid circular dependancies.)
+			ResolvedNodes.append(UnresolvedNodes[0])
 
-                        # remove the FIRST unresolved node from the list
-                        UnresolvedNodes.pop(0)
-                else:
-                        UnresolvedNodes = []
-                        print "FAILURE! ALL IS LOST!"
+			# remove the FIRST unresolved node from the list
+			UnresolvedNodes.pop(0)
+		else:
+			UnresolvedNodes = []
+			print "FAILURE! ALL IS LOST!"
                 
 		if iterationNumber > 100:
 			UnresolvedNodes = []
@@ -249,7 +289,7 @@ def BuildNodeTree():
 	Walkthrough.reverse()
 
 	for link in Walkthrough:
-		print link[2], "\t\tIn: ", link[0], "  Out:", link[1]
+		print link[0], "\t\tIn: ", link[1], "  Out:", link[2]
 
 
 

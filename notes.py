@@ -1,5 +1,27 @@
 
 """
+To-do list:
+- write input parser
+- input interpreter (determine the links between nodes)
+	* nodes can have sub-types/super-types.
+"""
+
+"""
+Col 1		Col 2					Col 3				Col 4				Col 5
+[Snippet]	Input Node(s)			Output node(s)		Input Node Types	Output Node Types
+			(comma separated)		(comma separated)	(comma separated)	(comma separated)
+
+- (for now, every node has a type)
+- (when dealing with a generic node, the name of the node is the same as the node type)
+"""
+
+
+
+
+""""""""""""""""""""""""""""""""""""""
+
+
+"""
 ListOfCharacterRoles = ["Healer", "Villain", "Foil", "Mentor", "Love Interest", "Shopkeeper"]
 ListOfItems = ["Potion", "Amulet", "Sword", "Key", "Dragon Axe", "Staff of Anchoring"]
 ListOfPlaces = ["Big Forest", "Sea", "Beach", "Town", "Mountain", "Evil Lair In the Dark Woods", "Haunted House"]
