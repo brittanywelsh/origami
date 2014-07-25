@@ -1,0 +1,85 @@
+Summary#Input#Output#InputType#OutputType#Props
+Swim to the bottom of the bay and find a shell#JarOfAir,Island#Shell#Misc,Place#Misc#0
+Take a photo of the ruins at the top of the mountain. Take it to the Archeologist to decipher#HighPlace#Translation#Place#Skill#0
+Use the AnchorStaff to change to timing on the moving platforms on the <TallPlace>. Climb to the top.#AnchorStaff#HighPlace#MagicItem#Place#0
+Find a flower#0#Flower#0#Plant#0
+Find a shell#0#Shell#0#Misc#0
+Use the map to navigate the labrinth to the bottom of the deep place#Map#DeepPlace#Book#Place#0
+Use the FireSpell to keep yourself warm as you climb the frozen mountainside.#FireSpell#HighPlace#Spell#Place#0
+Battle the Frost Dragon in the <Deep Place>- retrieve the Diamond#DeepPlace,FireSpell#Diamond#Place,Spell#Misc#0
+Find a sword stuck in a rusty gear mechancism- use the GreaseSpray to free the mechanism and withdraw it.#GreaseSpray#Sword#Misc#Weapon#0
+Use your translation on a book to retrieve instructions about where stuff is.#Translation,Book#Map#Skill,Book#Book#0
+Find a book at the local library#0#Book#0#Book#0
+A local wizard needs a diamond to complete her experiment. Give her the diamond to complete it, and she'll let you test it out.#Diamond#AnchorStaff#Misc#MagicItem#0
+Buy a candle from the local store.#0#Candle#0#Misc#0
+Buy a sword from the local store#0#Sword#0#Weapon#0
+Use your sword to hack flowers of a rugged tree#Sword#Flower#Weapon#Plant#0
+Use your shield to withstand incoming boulders as you climb the mountain#Shield#HighPlace#Weapon#Place#0
+Use the map to navigate the forest to the other side#Map#FarPlace#Book#Place#0
+Follow the tunnel to the Island.#DeepPlace#Island#Place#Place#0
+Use your candle to navigate the darkness#Candle#DeepPlace#Misc#Place#0
+Pick a shell up from the beach#Island#Shell#Place#Misc#0
+Take a ferry across to an island.#0#Island#0#Place#0
+Fight goblins, find diamond#Sword#Diamond#Weapon#Misc#0
+Find an ancient tome in the deep place#DeepPlace#Book#Place#Book#0
+Use the grease spray to repair the blacksmiths mechanism.#GreaseSpray#Shield#Misc#Weapon#0
+Double jump your way to <TallPlace>#DoubleJump#HighPlace#Skill#Place#0
+Double jump your way across the rocks to the island.#DoubleJump#Island#Skill#Place#0
+Double jump your way across a chasm to farplace#DoubleJump#FarPlace#Skill#Place#0
+Learn doublejump at the end of the tutorial#0#DoubleJump#0#Skill#0
+Fight the Jabberwock- save the kingdom#Sword,Shield,AnchorStaff#Win#Weapon,Weapon,MagicItem#Win#0
+Protect your candle in the jar, explore the wet cave.#JarOfAir,Candle#DeepPlace#Misc,Misc#Place#0
+Ward off evil spirits using the flower, candle and shell. Save the kingdom.#Candle,Flower,Shell#Win#Misc,Plant,Misc#Win#0
+Take photos of everywhere in the land, and become a ledgendary nature photographer.#DeepPlace,HighPlace,FarPlace,Island#Win#Place,Place,Place,Place#Win#0
+Cut down a tree with the axe to form a bridge across the chasm#Axe#FarPlace#Weapon#Place#0
+Use the Grease to unrust the Tin man- he gives you his axe in return.#GreaseSpray#Axe#Misc#Weapon#0
+Use your fire to heat the blacksmiths forge- in return he will smelt you a fine sword.#FireSpell#Sword#Spell#Weapon#0
+Battle the Iron Sorcerer and Save the kingdom#LightningSpell,FeatherFall, AnchorStaff#Win#Spell,Spell,MagicItem#Win#0
+Jump down into the gaping pit. Use your ring of featherfall to survive.#FeatherFall#DeepPlace#Spell#Place#0
+What an amazing day today is! Congradulations on getting out of bed today.#0#Win#0#Win#0
+Go to the graveyard and talk to a ghostly wizard. S/he teaches  you the fireball spell.#GhostSpeak#FireSpell#Skill#Spell#0
+Talk to the ghost of an explorer and learn way through <SOMEWHERE>#GhostSpeak#Map#Skill#Book#0
+Talk to the ghosts at the entrance to <DeepPlace>- they will let you pass if lay flowers around their tombs.#GhostSpeak,Flower#DeepPlace#Skill,Plant#Place#0
+Listen to the voices of Lost sailors in the Shell. Learn the location of a distant Island.#Shell, GhostSpeak#Island#Misc,Skill#Place#0
+Battle the gorgon!- use the feathfall spell to prevent yourself being knocked into the pit of lava.#FeatherFall,Axe#AnchorStaff#Spell,Weapon#MagicItem#0
+Steal a hammer from the blacksmith#0#Hammer#0#Weapon#0
+Bring the witchdoctor ingrediants and they will teach you to speak with ghosts.#Flower,Shell#GhostSpeak#Plant,Misc#Skill#0
+Retrieve the priests holy book, and he will teach you how to speak with ghosts.#Book#GhostSpeak#Book#Skill#0
+Buy a shield#0#Shield#0#Weapon#0
+Find a can of GreaseSpray in a tool shed.#0#GreaseSpray#0#Misc#0
+Help an Alchemist make their brew. Recieve a random concoction in return.#Flower#GreaseSpray#Plant#Misc#0
+Climb!#0#HighPlace#0#Place#0
+Find a map in the local bookstore#0#Map#0#Book#0
+Go buy some candy#0#Candy#0#Misc#0
+A child in town will trade pranking supplies for some candy.#Candy#GreaseSpray#Misc#Misc#0
+Push a huge boulder our of your way in order to explore the tomb.#GiantStrength#DeepPlace#Skill#Place#0
+Pass a test of the Forge God to earn giantStrength#Hammer,FireSpell#GiantStrength#Weapon,Spell#Skill#0
+Roll boulders into position so that you can climb the mountain.#GiantStrength#HighPlace#Skill#Place#0
+Talk to the Oracle and learn to speak with Ghosts.#HighPlace#GhostSpeak#Place#Skill#0
+Read a Spellbook, and teach yourself FeatherFall#Feather,Book#FeatherFall#Misc,Book#Spell#0
+Capture a chicken#0#Feather#0#Misc#0
+Convince a great Eagle to give you one of its feathers.#AnimalSpeak#Feather#Skill#Misc#0
+Bring ingrediants for making Candy.#Flower#Candy#Plant#Misc#0
+A sweet toothed forest spirit will teach you to speak with animals.#Candy#AnimalSpeak#Misc#Skill#0
+Use Rope to climb the mountain#Rope#HighPlace#Misc#Place#0
+Defeat the living bramble and reclaim the huntsmans axe.#FireSpell#Axe#Spell#Weapon#0
+The ancient spirits in the ghost place will teach you how to talk to others.#DeepPlace#GhostSpeak#Place#Skill#0
+Give the Blacksmith a new hammer, get a shield#Hammer#Shield#Weapon#Weapon#0
+Help Doctor Frankenstien finish his diabolic experiment!#Diamond,LightningSpell,GhostSpeak#Win#Misc,Spell,Skill#Win#0
+Talk to the thunderbird at the top of the mountain. It will teach you how to create lightning.#HighPlace,AnimalSpeak#LightningSpell#Place,Skill#Spell#0
+A priest will give her/her staff to whoever can cure their spouses illness#PotionOfHealing#AnchorStaff#MagicItem#MagicItem#0
+Witchdoctor can brew up a healing potion... with enough ingredients.#RareHerb, Feather,Shell#PotionOfHealing#Plant,Misc,Misc#MagicItem#0
+You can cook up a potion of healing with sufficient research and preparation#Book,RareHerb,Flower#PotionOfHealing#Book,Plant,Plant#MagicItem#0
+So the herb isn't all that Rare- you find one walking around.#0#RareHerb#0#Plant#0
+Retrieve some of the RareHerb from a treetop, just out of reach of passers by.#DoubleJump#RareHerb#Skill#Plant#0
+Cut through a thicket of brambles to find the RareHerb.#Axe#RareHerb#Weapon#Plant#0
+Find a strange plant at the top of a mountain.#HighPlace#RareHerb#Place#Plant#0
+Using your knowledge and reading of herbology, you now have the knowledge to identify this rare and precious plant.#Book#RareHerb#Book#Plant#0
+Eat the herb, become strong like a giant!#RareHerb#GiantStrength#Plant#Skill#0
+Bash open a boulder, retrieve the Diamond inside#GiantStrength#Diamond#Skill#Misc#0
+Bash open a boulder, retrieve the Diamond inside#Hammer#Diamond#Weapon#Misc#0
+The first time the player dies, a nearby ghost shows up and brings you back, chatting to you in the process. You are informed that although you are now dead, your quest is not yet over.#0#GhostSpeak#0#Skill#0
+Repair the SteelChariot, and power it using lightning- it will take you far away.#GreaseSpray,LightningSpell#FarPlace#Misc,Spell#Place#0
+Shatter the Diamond, and gain the power of lightning#Diamond,Hammer#LightningSpell#Misc,Weapon#Spell#0
+Complete the ritual in the forest- talk to the spirit wolf.#Feather,Shell,RareHerb#AnimalSpeak#Misc,Misc,Plant#Skill#0
+Buy a rope#0#Rope#0#Misc#0
