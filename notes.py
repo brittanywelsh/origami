@@ -1,3 +1,30 @@
+"""
+-------
+ORIGAMI
+-------
+
+This program generates a story/game walkthrough from a list of "snippets" (which are causal links between various types of inputs and outputs, such as characters, locations, and game-significant items).
+
+A "SNIPPET" is a list of the form [Description, Inputs, Outputs, InputTypes, OutputTypes], where each of the constituent parts is a list of strings
+
+1. NodeTreeConstructor
+	Generates 
+	a. Read inputs (snippets, input/output of snippets) from CSV file
+	b. Generate tree of causally-linked events, from start to end of game
+		- procedure loops until an acceptable tree is generated
+2. 
+"""
+
+
+
+"""
+0. What input does "World Builder" need?
+1. Write merger
+
+"""
+
+
+
 
 """
 To-do list:
@@ -5,16 +32,6 @@ To-do list:
 - input interpreter (determine the links between nodes)
 	* nodes can have sub-types/super-types.
 """
-
-"""
-Col 1		Col 2					Col 3				Col 4				Col 5
-[Snippet]	Input Node(s)			Output node(s)		Input Node Types	Output Node Types
-			(comma separated)		(comma separated)	(comma separated)	(comma separated)
-
-- (for now, every node has a type)
-- (when dealing with a generic node, the name of the node is the same as the node type)
-"""
-
 
 
 

@@ -53,8 +53,8 @@ for line in inputFile:
 
 
 
-#for thing in MasterSnippetsList:
-#	print thing, "\n"
+for thing in MasterSnippetsList:
+	print thing, "\n"
 
 """
 from sys import stdout

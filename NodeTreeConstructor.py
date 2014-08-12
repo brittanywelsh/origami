@@ -21,7 +21,7 @@ Col 1		Col 2					Col 3				Col 4				Col 5
 import random
 
 """
-# SnippetList is a list of 3-tuples. Each 3-tuple is a "link" and has input list, output string, & desc. string.
+# SnippetList is a list of 3-tuples. Each 3-tuple is a "snippet" and has input list, output string, & desc. string.
 SnippetList = [
 [ ["JarOfAir","Island"], "Shell", "Swim to the bottom of the bay and find a shell"],
 [ ["HighPlace"], "Translation", "Take a photo of the ruins at the top of the mountain. Take it to the Archeologist to decipher"],
@@ -125,7 +125,7 @@ for line in inputFile:
 	OutputTypesList = []
 	line.replace("\n","") # remove newline symbols
 	ListOfItems = line.split("#")
-	Snippet = ListOfItems[0]
+	Description = ListOfItems[0]
 	InputItems = ListOfItems[1]
 	OutputItems = ListOfItems[2]
 	InputTypes = ListOfItems[3]
@@ -140,13 +140,13 @@ for line in inputFile:
 			InputTypesList.append(item)
 	for item in OutputTypes.split(","):
 		OutputTypesList.append(item)
-	RowList = []
-	RowList.append(Snippet)
-	RowList.append(InputsList)
-	RowList.append(OutputsList)
-	RowList.append(InputTypesList)
-	RowList.append(OutputTypesList)
-	SnippetList.append(RowList)
+	NewSnippet = []
+	NewSnippet.append(Description)
+	NewSnippet.append(InputsList)
+	NewSnippet.append(OutputsList)
+	NewSnippet.append(InputTypesList)
+	NewSnippet.append(OutputTypesList)
+	SnippetList.append(NewSnippet)
 #for thing in SnippetList:
 #	print thing, "\n"
 
@@ -156,70 +156,70 @@ for line in inputFile:
 
 
 
-def NumberOfInputs( inputLink ):
-	inputSnippetList = inputLink[1]
-	NumberOfInputs = len(inputSnippetList)
+def NumberOfInputs( inputSnippet ):
+	inputList = inputSnippet[1]
+	NumberOfInputs = len(inputList)
 	return NumberOfInputs
 
-def GetLinkWithNonemptyInput( listOfLinks ):
-	TestLinkHasEmptyInput = True
+def GetSnippetWithNonemptyInput( listOfSnippets ):
+	TestSnippetHasEmptyInput = True
 #	OverflowCounter = 0
 
-	while TestLinkHasEmptyInput:
-		RandomNumber = random.randint(0, len(listOfLinks)-1)
-		TestLink = listOfLinks[ RandomNumber ]
-		if NumberOfInputs( TestLink ) != 0:
-			TestLinkHasEmptyInput = False
-			return TestLink
+	while TestSnippetHasEmptyInput:
+		RandomNumber = random.randint(0, len(listOfSnippets)-1)
+		TestSnippet = listOfSnippets[ RandomNumber ]
+		if NumberOfInputs( TestSnippet ) != 0:
+			TestSnippetHasEmptyInput = False
+			return TestSnippet
 #		OverflowCounter += 1
 #		if OverflowCounter > 10:
 #			return
 
 
-def GetAppropriateLink( outputNeeded, listOfLinks, inputsForbidden ):
-	TestLinkIsNoGood = True
+def GetAppropriateSnippet( outputNeeded, listOfSnippets, inputsForbidden ):
+	TestSnippetIsNoGood = True
 	OverflowCounter = 0
-        IndexDeck= range(0, len(listOfLinks))
+        IndexDeck= range(0, len(listOfSnippets))
         random.shuffle(IndexDeck)
 
-	while TestLinkIsNoGood and OverflowCounter<len(IndexDeck):		
-		TestLink = listOfLinks[IndexDeck[OverflowCounter] ]
-		if TestLink[2][0] == outputNeeded:
+	while TestSnippetIsNoGood and OverflowCounter<len(IndexDeck):		
+		TestSnippet = listOfSnippets[IndexDeck[OverflowCounter] ]
+		if TestSnippet[2][0] == outputNeeded:
                         print "Found method to get",outputNeeded
-                        if len([val for val in TestLink[1] if val in inputsForbidden])==0:
-                                TestLinkIsNoGood = False
-                                return TestLink
+                        if len([val for val in TestSnippet[1] if val in inputsForbidden])==0:
+                                TestSnippetIsNoGood = False
+                                return TestSnippet
                         else:
-                                print "Can't use method because of forbidden node",[val for val in TestLink[1] if val in inputsForbidden]
+                                print "Can't use method because of forbidden node",[val for val in TestSnippet[1] if val in inputsForbidden]
 		OverflowCounter += 1	
 	return
 
 
 
-def GetLinkWithOutput( node, listOfLinks ):
-	TestLinkIsNoGood = True
+def GetSnippetWithOutput( node, listOfSnippets ):
+	TestSnippetIsNoGood = True
 #	OverflowCounter = 0
 
-	while TestLinkIsNoGood:
-		RandomNumber = random.randint(0, len(listOfLinks)-1)
-		TestLink = listOfLinks[ RandomNumber ]
-		if TestLink[2][0] == node:
-			TestLinkIsNoGood = False
-			return TestLink
+	while TestSnippetIsNoGood:
+		RandomNumber = random.randint(0, len(listOfSnippets)-1)
+		TestSnippet = listOfSnippets[ RandomNumber ]
+		if TestSnippet[2][0] == node:
+			TestSnippetIsNoGood = False
+			return TestSnippet
 #		OverflowCounter += 1
 #		if OverflowCounter > 10:
 #			return
 
-def GetWinningLink( listOfLinks ):
-	TestLinkDoesNotWin = True
+def GetWinningSnippet( listOfSnippets ):
+	TestSnippetDoesNotWin = True
 #	OverflowCounter = 0
 
-	while TestLinkDoesNotWin:
-		RandomNumber = random.randint(0, len(listOfLinks)-1)
-		TestLink = listOfLinks[ RandomNumber ]
-		if TestLink[2][0]=="Win":
-			TestLinkDoesNotWin = False
-			return TestLink
+	while TestSnippetDoesNotWin:
+		RandomNumber = random.randint(0, len(listOfSnippets)-1)
+		TestSnippet = listOfSnippets[ RandomNumber ]
+		if TestSnippet[2][0]=="Win":
+			TestSnippetDoesNotWin = False
+			return TestSnippet
 #		OverflowCounter += 1
 #		if OverflowCounter > 10:
 #			return
@@ -241,14 +241,14 @@ def BuildNodeTree():
 	UnresolvedNodes = []
 	ResolvedNodes = []
 
-#### choose random vs. choose a link with a win condition
-#	InitialLink = GetLinkWithNonemptyInput(SnippetList)
-	InitialLink = GetWinningLink(SnippetList)
+#### choose random vs. choose a Snippet with a win condition
+#	InitialSnippet = GetSnippetWithNonemptyInput(SnippetList)
+	InitialSnippet = GetWinningSnippet(SnippetList)
 ####
 
-	### GET INITIAL LINK (with win condition) ###
-	Walkthrough.append(InitialLink)
-	InitialInputList = InitialLink[1]
+	### GET INITIAL Snippet (with win condition) ###
+	Walkthrough.append(InitialSnippet)
+	InitialInputList = InitialSnippet[1]
 	print "InitialInputList = ", InitialInputList
 	for i in range(len(InitialInputList)):
 		UnresolvedNodes.append( InitialInputList[i] )
@@ -263,7 +263,7 @@ def BuildNodeTree():
 		# resolve the FIRST unresolved node
 		ThisUnresolvedNode = UnresolvedNodes[0]
 		print "THIS UNRESOLVED NODE = ", ThisUnresolvedNode
-		NewSnippet = GetAppropriateLink( ThisUnresolvedNode, SnippetList, ResolvedNodes)
+		NewSnippet = GetAppropriateSnippet( ThisUnresolvedNode, SnippetList, ResolvedNodes)
 		
 		if NewSnippet:
 			Walkthrough.append(NewSnippet)
