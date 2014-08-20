@@ -31,6 +31,8 @@ Therefore, we have the following system:
 	- Every element on the LIST OF LINKS refers to a number, but it should always POINT TO THE *POSITION* on the LIST OF POINTERS.
 			** This is so that there is only ever one "level of misdirection" in our merge scheme.
 			** This also helps us so that we don't have to do too many list manipulations when we merge nodes.
+                        !! Issue: we are already doing heaps list manipulation for other reasons- transative properties, symetric properties, removing duplicate, etc. Would it be easier to just mess with the lists?
+                                                                
 """
 
 
@@ -39,6 +41,8 @@ Therefore, we have the following system:
 To-do later:
 	- implement genetic algortihm capabilities
 """
+
+import copy
 
 BrittanyGraphForTesting = [
 	[0,1,2,3,4,5],
@@ -53,9 +57,27 @@ BrittanyGraphForTesting = [
 ]
 
 
+def AlastairMakeTestGraph():
+        size=14
+        LinkNums=12
+        ListNodes=range(size)
+        Links= [ [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        Content= [ ["a"],["b"],["c"],["d"],["e"],["f"],["g"],["h"],["i"],["j"],["k"],["l"],["m"],["n"],["o"],["p"],["q"],["r"]]
+        Content= Content[0:size]
+        Links= Links[0:size]
+        while LinkNums>0:
+                LinkNums=LinkNums-1
+                pair=  PickNodesToMerge(ListNodes)
+                Links[pair[0]].append(pair[1])
+                Links[pair[1]].append(pair[0])
+
+        ReturnMe= [ListNodes,Links,Content]
+        return ReturnMe
+
+
 
 def SatisfactionConditionsAreNotMet( listOfExistingNodes ):
-	if len(listOfExistingNodes) <= 4:
+	if len(listOfExistingNodes) <= 7:
 		return False
 	else:
 		return True
@@ -71,9 +93,10 @@ def GenerateTestGraph( inputGraph, nodesToMerge ):
 	pointerA = nodesToMerge[0]
 	pointerB = nodesToMerge[1]
 
-	newListOfPointers = list(inputGraph[0])
-	newListOfLinks = list(inputGraph[1])
-	newListOfContent = list(inputGraph[2])
+                #NOTE (A2B) It appears that our copying was not deep enough. This lead to this method altering its input. Now using the much slower deep copy, but other suggestions welcome.
+	newListOfPointers = copy.deepcopy(inputGraph[0])
+	newListOfLinks = copy.deepcopy(inputGraph[1])
+	newListOfContent = copy.deepcopy(inputGraph[2])
 	# [A, B] -> [A, A]
 	# We have nodesToMerge = [A,B]. This means we want to replace all instances of "B" with "A".
 
@@ -100,9 +123,32 @@ def GenerateTestGraph( inputGraph, nodesToMerge ):
 	outputGraph.append(newListOfContent)
 	return outputGraph
 
+
+def ConsolidateGraph(inputGraph):
+        #This is a method which writes over link indices, AND removes duplicate links. May be basis for more advanced thing.
+        #Give that this method is INTENDED to alter its input, no copying (deep or otherwise) is done.        
+        for linksFrom in range(len(inputGraph[1])):
+                if inputGraph[1][linksFrom] is not "BANANA":
+                        for linkIndex in range(len(inputGraph[1][linksFrom])):
+                                inputGraph[1][linksFrom][linkIndex] = inputGraph[0][inputGraph[1][linksFrom][linkIndex] ]
+                        inputGraph[1][linksFrom]=[ii for n,ii in enumerate(inputGraph[1][linksFrom]) if ii not in inputGraph[1][linksFrom][:n]]                
+        
+
+        
+def AbhorSelfLinksTest(inputGraph):
+        print "Abhoring SelfLinks"
+        for linksFrom in range(len(inputGraph[1])):
+                if inputGraph[1][linksFrom] is not "BANANA":                
+                        print "is "  ,linksFrom ," in " ,inputGraph[1][linksFrom],"?"
+                        if linksFrom in inputGraph[1][linksFrom]:
+                                print "YES! Thus self link, thus is bad."
+                                return False
+        return True
+
 def VerifyTestGraphIsGood( inputGraph ):
-	if 1:
-		return True
+	if AbhorSelfLinksTest(inputGraph):
+		return True	
+	return False
 
 def NodeMerger( inputGraph ):
 
@@ -116,15 +162,19 @@ def NodeMerger( inputGraph ):
 		nodesToMerge = PickNodesToMerge( listOfCurrentlyExistingNodes )
 		print "Merging ", nodesToMerge[1], " into ", nodesToMerge[0]
 
+
 		print "Previously the list of pointers looked like..... ", latestGraph[0]
 		# 'Test merge' the two nodes by generating a new graph with the two nodes being merged:
 		testGraph = GenerateTestGraph( latestGraph, nodesToMerge )
-		print "After testGraph, the list of pointers looks like ", testGraph[0]
-
+		print "\nJust after testGraph the grpah is:\n", latestGraph
+                ConsolidateGraph(testGraph)
+                
 		# Check that the proposed merge doesn't break the rules of the system:
 		testGraphIsGood = VerifyTestGraphIsGood( testGraph )
 
+
 		if testGraphIsGood:
+                        print "Updating Graph"
 			latestGraph = list(testGraph)
 			listOfCurrentlyExistingNodes.remove( nodesToMerge[1] )
 		print "Once the loop is complete, the listOfCurrentlyExistingNodes looks like: ", listOfCurrentlyExistingNodes
@@ -132,4 +182,6 @@ def NodeMerger( inputGraph ):
 	print "\nTHE FINAL GRAPH IS:\n", latestGraph
 	return latestGraph
 
-NodeMerger(BrittanyGraphForTesting)
+InitialGraph= AlastairMakeTestGraph()
+print "\nTHE INITIAL GRAPH IS:\n",InitialGraph
+NodeMerger(InitialGraph)
