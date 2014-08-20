@@ -185,12 +185,12 @@ def GetAppropriateSnippet( outputNeeded, listOfSnippets, inputsForbidden ):
 	while TestSnippetIsNoGood and OverflowCounter<len(IndexDeck):		
 		TestSnippet = listOfSnippets[IndexDeck[OverflowCounter] ]
 		if TestSnippet[2][0] == outputNeeded:
-                        print "Found method to get",outputNeeded
+                        #print "Found method to get",outputNeeded
                         if len([val for val in TestSnippet[1] if val in inputsForbidden])==0:
                                 TestSnippetIsNoGood = False
                                 return TestSnippet
-                        else:
-                                print "Can't use method because of forbidden node",[val for val in TestSnippet[1] if val in inputsForbidden]
+                        #else:
+                         #       print "Can't use method because of forbidden node",[val for val in TestSnippet[1] if val in inputsForbidden]
 		OverflowCounter += 1	
 	return
 
@@ -249,7 +249,7 @@ def BuildNodeTree():
 	### GET INITIAL Snippet (with win condition) ###
 	Walkthrough.append(InitialSnippet)
 	InitialInputList = InitialSnippet[1]
-	print "InitialInputList = ", InitialInputList
+	#print "InitialInputList = ", InitialInputList
 	for i in range(len(InitialInputList)):
 		UnresolvedNodes.append( InitialInputList[i] )
 
@@ -258,11 +258,11 @@ def BuildNodeTree():
 	while len(UnresolvedNodes) > 0:
 
 		iterationNumber += 1
-		print "ITERATION ", iterationNumber, "\tunresolved nodes = ", UnresolvedNodes
+		#print "ITERATION ", iterationNumber, "\tunresolved nodes = ", UnresolvedNodes
 
 		# resolve the FIRST unresolved node
 		ThisUnresolvedNode = UnresolvedNodes[0]
-		print "THIS UNRESOLVED NODE = ", ThisUnresolvedNode
+		#print "THIS UNRESOLVED NODE = ", ThisUnresolvedNode
 		NewSnippet = GetAppropriateSnippet( ThisUnresolvedNode, SnippetList, ResolvedNodes)
 		
 		if NewSnippet:
@@ -279,7 +279,8 @@ def BuildNodeTree():
 			UnresolvedNodes.pop(0)
 		else:
 			UnresolvedNodes = []
-			print "FAILURE! ALL IS LOST!"
+			#print "FAILURE! ALL IS LOST!"
+			return False
                 
 		if iterationNumber > 100:
 			UnresolvedNodes = []
@@ -290,10 +291,12 @@ def BuildNodeTree():
 
 	for link in Walkthrough:
 		print link[0], "\t\tIn: ", link[1], "  Out:", link[2]
+	return True
 
 
+while not BuildNodeTree():
+        print "Try again"
 
-BuildNodeTree()
 
 
 """

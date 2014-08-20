@@ -1,0 +1,21 @@
+#This file is here in order to contain all the relevant
+#Relation incodings in the game. It will probably contain no code.
+
+
+# General encodings
+
+# >$   X preceeds Y in Gameplay (transitive , inverse of  <$)
+# <$   X follows Y in Gameplay  (transitive, inverse of >$) 
+# !$   X and Y are mutually exculsive in game play. (reflexive)
+# C    X contains Y. (house in a town, sword in a cave, person in a village. etc)
+
+
+# >A   X is older than Y in the story (transitive, inverse of <A)
+# <A   X is younger than Y in story (transitive, inverse of >A)
+# Pr   X is a parent of Y
+# Ch   X is a child of Y
+# =g   X has the same gender as Y
+# !g   X has the opposite gender to Y (do same sex couples magically spawn offspring? Or do we try to constrain?)
+# Sb   X is a sibling of Y (symetric)
+# <3   X is romantically inclined towards Y ...not symetric :(
+# 
